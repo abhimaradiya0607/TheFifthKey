@@ -7,13 +7,17 @@ const Listing = require('../models/listing.js');
 const {isLoggedIn,isOwner,validateListing}=require("../middleware.js");
 const { populate } = require('../models/reviews.js');
 const ListingController = require('../controllers/listings.js');
+const multer=require('multer');
+const {storage}=require('../cloudConfig.js')
+const upload=multer({storage})
+
 
 
 //Listing index route
 //New Listing is added 
 router.route('/')
 .get(wrapAsync(ListingController.index))
-.post(validateListing, isLoggedIn,wrapAsync(ListingController.newListing));
+.post(validateListing,upload.single("listing[image]") ,isLoggedIn,wrapAsync(ListingController.newListing));
 
 //New listing FORM route
 router.get('/new', isLoggedIn,ListingController.newForm);

@@ -1,9 +1,17 @@
+if(process.env.NODE_ENV !="production"){
+    require("dotenv").config();
+}
+
+
+
 const express = require('express');
 const app = express();
 const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError.js');
+const multer=require('multer');
+const upload=multer({dest:'uploads/'})
 
 const listingrouter = require("./routes/listing.js");
 const reviewsrouter = require('./routes/reviews.js');
@@ -23,6 +31,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, '/public')))
 app.use(cookieParser())
+
+
 
 
 app.engine("ejs", ejsMate);
