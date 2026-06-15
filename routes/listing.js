@@ -10,25 +10,26 @@ const ListingController = require('../controllers/listings.js');
 
 
 //Listing index route
-router.get('/', wrapAsync(ListingController.index));
+//New Listing is added 
+router.route('/')
+.get(wrapAsync(ListingController.index))
+.post(validateListing, isLoggedIn,wrapAsync(ListingController.newListing));
 
 //New listing FORM route
 router.get('/new', isLoggedIn,ListingController.newForm);
 
-//Show Route
-router.get('/:id', wrapAsync(ListingController.showListing));
 
-//New Listing is added 
-router.post('/', validateListing, isLoggedIn,wrapAsync(ListingController.newListing));
+//Show Route
+//Edit/Update Route and Save
+//delets GET request
+
+router.route('/:id')
+.get(wrapAsync(ListingController.showListing))
+.put(isLoggedIn,isOwner,validateListing,wrapAsync(ListingController.listingupadtesaved))
+.delete(isLoggedIn,isOwner,wrapAsync(ListingController.listingDelete));
+
 
 //Listing Edit/Update Form
 router.get('/:id/edit', isLoggedIn,isOwner,wrapAsync(ListingController.listingUpdateform));
-
-//Edit/Update Route and Save
-router.put('/:id',isLoggedIn,isOwner,validateListing,wrapAsync(ListingController.listingupadtesaved));
-
-
-//delets GET request
-router.delete('/:id', isLoggedIn,isOwner,wrapAsync(ListingController.listingDelete));
 
 module.exports = router;
