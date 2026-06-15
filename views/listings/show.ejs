@@ -76,12 +76,28 @@
           <!-- Star Rating -->
           <div class="mb-4">
             <label class="review-label">Your Rating</label>
-            <div class="star-rating" id="starRating">
-              <% for(let i = 5; i >= 1; i--) { %>
-                <input type="radio" name="review[rating]" id="star<%=i%>" value="<%=i%>">
-                <label for="star<%=i%>" title="<%=i%> stars">&#9733;</label>
-              <% } %>
-            </div>
+            <fieldset class="starability-slot">
+              <input type="radio" 
+              id="no-rate" 
+              class="input-no-rate" 
+              name="review[rating]" 
+              value="1" 
+              checked 
+              aria-label="No rating." />
+
+              <legend>First rating:</legend>
+              <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+              <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+              <label for="first-rate1" title="Terrible">1 star</label>
+              <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+              <label for="first-rate2" title="Not good">2 stars</label>
+              <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+              <label for="first-rate3" title="Average">3 stars</label>
+              <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+              <label for="first-rate4" title="Very good">4 stars</label>
+              <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+              <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
             <div id="ratingError" style="display:none; color:#dc3545; font-size:0.875rem; margin-top:0.4rem;">
               Please select a rating.
             </div>
@@ -124,13 +140,8 @@
 
           <!-- Stars -->
           <b><i>@<%=review.author.username%></b></i>
-          <div style="margin-bottom:10px; font-size:15px;">
-            <% for(let i = 1; i <= 5; i++) { %>
-              <% const starColor = i <= review.rating ? '#E8A020' : '#ddd'; %>
-              <span style="color:<%= starColor %>;">&#9733;</span>
-            <% } %>
-          </div>
-
+          <p class="starability-result" data-rating="<%=review.rating%>">
+          </p>
           <!-- Comment -->
           <p style="font-size:14px; color:#444; line-height:1.6; margin:0;">
             <%= review.comment %>
