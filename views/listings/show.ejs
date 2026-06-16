@@ -1,4 +1,7 @@
 <%layout('/layouts/boilerplate')%>
+<script>
+    let mapToken="<%=process.env.MAP_TOKEN%>"
+</script>
 
 <div class="container py-5">
 
@@ -126,6 +129,7 @@
   <%}%>
 
   <!-- All Reviews -->
+   <%if(listing.reviews.length>0){%>
   <div class="row mt-4">
     <div class="col-lg-8 offset-lg-2">
 
@@ -159,11 +163,16 @@
         </div>
         <% } %>
       </div>
-
     </div>
   </div>
+  <%}%>
+  <div class="col-8 offset-3 mb-3">
+    <h3>Where Youll be</h3>
+    <div id="map"></div>
+  </div>
 
-</div>
+
+
 
 <style>
   .review-card {
@@ -202,3 +211,4 @@
     this.classList.add('was-validated');
   });
 </script>
+<script src="/javascript/map.js"></script>

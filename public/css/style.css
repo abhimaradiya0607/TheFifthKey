@@ -482,3 +482,8 @@ body{
         transform: translateX(120%);
     }
 }
+
+#map {
+  width: 80vh;
+  height: 400px;
+}

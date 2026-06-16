@@ -1,4 +1,12 @@
+const { response } = require('express');
 const Listing=require('../models/listing.js')
+
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+
+const mapToken=process.env.MAP_TOKEN;
+const geocodingClient = mbxGeocoding({
+    accessToken: mapToken
+  });
 
 //Index ROute
 module.exports.index=async (req, res) => {
@@ -31,6 +39,16 @@ module.exports.showListing=async (req, res) => {
 }
 
 module.exports.newListing=async (req, res) => {
+
+    let response= await geocodingClient.forwardGeocode({
+        query: 'Ahmedabad,India',
+        limit: 1
+      })
+        .send()
+
+        console.log(response);
+        res.send('Done');
+        
     let url=req.file.path;
     let filename=req.file.filename;
 
