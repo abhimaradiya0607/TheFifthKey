@@ -9,4 +9,5 @@ let token=mapToken;
 
     const marker=new mapboxgl.Marker({color:'red'})
     .setLngLat(coordinates)
+    .setPopup(new mapboxgl.Popup({offeset:25}).setHTML("<p>Exact Location provided after booking</p>"))
     .addTo(map);
